@@ -198,6 +198,18 @@ export const Intro = ({ onComplete }) => {
             ) : (
                 // INTRO ANIMATION CONTENT
                 <>
+                    {/* SKIP BUTTON */}
+                    <button
+                        onClick={() => {
+                            if (audioRef.current) audioRef.current.pause();
+                            if (introRef.current) gsap.killTweensOf(introRef.current);
+                            if (onComplete) onComplete();
+                        }}
+                        className="absolute bottom-4 right-4 md:bottom-8 md:right-8 z-[10001] px-4 py-2 bg-transparent border border-white/20 text-white/50 hover:text-neon-green hover:border-neon-green/50 active:scale-95 font-mono text-xs tracking-widest transition-all duration-300 group"
+                    >
+                        <span className="group-hover:drop-shadow-[0_0_5px_rgba(26,255,125,0.8)]">SKIP_INTRO</span>
+                    </button>
+
                     {/* 0. BACKGROUND */}
                     <div className="absolute inset-0 z-0 bg-black">
                         {/* 0A. WALTER WHITE BG (Specific to 'Say My Name') */}
@@ -244,25 +256,25 @@ export const Intro = ({ onComplete }) => {
                         <div className="flex flex-col items-start relative">
 
                             {/* ROW 1: O-ut */}
-                            <div className="flex items-end z-20">
+                            <div className="flex items-center z-20">
                                 <div className="intro-logo-box">
                                     <LogoBox symbol="O" number="8" />
                                 </div>
-                                <span className="intro-text-part text-5xl md:text-[6rem] font-serif text-white leading-none ml-3 tracking-tight drop-shadow-lg">
+                                <span className="intro-text-part text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-none ml-3 tracking-tight drop-shadow-lg font-bold">
                                     ut
                                 </span>
                             </div>
 
                             {/* ROW 2: Br-eak'26 */}
-                            <div className="flex items-end z-10 ml-16 md:ml-28 lg:ml-32">
+                            <div className="flex items-center z-10 ml-16 md:ml-28 lg:ml-32">
                                 <div className="intro-logo-box">
                                     <LogoBox symbol="Br" number="35" />
                                 </div>
-                                <span className="intro-text-part text-5xl md:text-[6rem] font-serif text-white leading-none ml-3 tracking-tight drop-shadow-lg">
+                                <span className="intro-text-part text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-none ml-3 tracking-tight drop-shadow-lg font-bold">
                                     eak
                                 </span>
                                 {/* '26 */}
-                                <span className="intro-year text-5xl md:text-[6rem] font-serif text-white leading-none tracking-tight drop-shadow-lg">
+                                <span className="intro-year text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-none tracking-tight drop-shadow-lg font-bold">
                                     '26
                                 </span>
                             </div>

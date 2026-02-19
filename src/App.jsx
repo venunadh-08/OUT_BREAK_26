@@ -94,8 +94,8 @@ function App() {
                 <Route path="/" element={<MainLayout />} />
                 <Route path="/register" element={<RegistrationPage />} />
                 <Route path="/success" element={<SuccessPage />} />
-                <Route path="/admin" element={<AdminLogin />} />
-                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/gfg_out_admin" element={<AdminLogin />} />
+                <Route path="/gfg_out_admin/dashboard" element={<AdminDashboard />} />
             </Routes>
         </BrowserRouter>
     );

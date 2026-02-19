@@ -45,21 +45,21 @@ export const Header = ({ onRegister }) => {
                         {/* Chemical Title: [O]ut [Br]eak'26 */}
                         <div className="flex flex-col justify-center -space-y-px">
                             {/* Row 1: [O]ut */}
-                            <div className="flex items-end gap-1">
+                            <div className="flex items-center gap-1">
                                 <div className="w-6 h-6 bg-[#1a4d2e] relative flex flex-col justify-center items-center p-0.5 border border-white/20">
                                     <span className="absolute top-0 right-0.5 text-[5px] font-bold text-white font-serif opacity-80">8</span>
                                     <span className="text-xs font-bold text-white font-serif leading-none">O</span>
                                 </div>
-                                <span className="text-lg font-serif text-white tracking-tight leading-none mb-0.5">ut</span>
+                                <span className="text-xs font-bold font-serif text-white tracking-tight leading-none mb-0.5">ut</span>
                             </div>
 
                             {/* Row 2: [Br]eak'26 */}
-                            <div className="flex items-end gap-1 pl-6">
+                            <div className="flex items-center gap-1 pl-6">
                                 <div className="w-6 h-6 bg-[#1a4d2e] relative flex flex-col justify-center items-center p-0.5 border border-white/20">
                                     <span className="absolute top-0 right-0.5 text-[5px] font-bold text-white font-serif opacity-80">35</span>
                                     <span className="text-xs font-bold text-white font-serif leading-none">Br</span>
                                 </div>
-                                <span className="text-lg font-serif text-white tracking-tight leading-none mb-0.5">eak'26</span>
+                                <span className="text-xs font-bold font-serif text-white tracking-tight leading-none mb-0.5">eak'26</span>
                             </div>
                         </div>
                     </div>

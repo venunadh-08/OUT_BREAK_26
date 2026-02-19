@@ -74,15 +74,15 @@ export const Hero = ({ onRegister }) => {
         <div
             className="logo-box shrink-0 flex flex-col justify-center items-center p-2 relative"
             style={{
-                width: 'clamp(80px, 15vw, 120px)',
-                height: 'clamp(80px, 15vw, 120px)',
+                width: 'clamp(64px, 15vw, 120px)',
+                height: 'clamp(64px, 15vw, 120px)',
                 backgroundColor: color,
                 border: 'clamp(4px, 1vw, 6px) solid white',
                 boxShadow: '0 0 30px rgba(26, 77, 46, 0.4)'
             }}
         >
             <span className="absolute top-2 right-3 text-sm md:text-lg font-bold text-white font-serif">{number}</span>
-            <span className="text-4xl md:text-6xl font-bold text-white leading-none font-serif mb-1">{symbol}</span>
+            <span className="text-3xl md:text-6xl font-bold text-white leading-none font-serif mb-1">{symbol}</span>
         </div>
     );
 
@@ -138,10 +138,13 @@ export const Hero = ({ onRegister }) => {
                     {/* STACKED LAYOUT (Matching Intro.jsx) */}
                     <div className="flex flex-col items-start relative max-w-4xl">
 
+
                         {/* FIRST ROW: O-ut */}
-                        <div className="flex items-end z-20">
+                        <div className="flex items-center z-20">
                             <LogoBox symbol="O" number="8" />
-                            <span className="title-text text-5xl md:text-[6rem] font-serif text-white tracking-tight ml-3 drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] leading-none">
+                            <span
+                                className="title-text text-3xl md:text-6xl font-serif font-bold text-white tracking-tight ml-3 drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] leading-none flex items-center"
+                            >
                                 ut
                             </span>
                         </div>
@@ -150,14 +153,17 @@ export const Hero = ({ onRegister }) => {
                         {/* ml-8 md:ml-12 lg:ml-16 to align Br to middle of O */}
                         {/* -mt-2 to make them touch vertically */}
                         <div
-                            className="flex items-end z-10"
-                            style={{ marginLeft: 'clamp(80px, 15vw, 120px)' }}
+                            className="flex items-center z-10"
+                            style={{ marginLeft: 'clamp(64px, 15vw, 120px)' }}
                         >
                             <LogoBox symbol="Br" number="35" />
-                            <span className="title-text text-5xl md:text-[6rem] font-serif text-white tracking-tight ml-3 drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] leading-none">
+                            <span
+                                className="title-text text-3xl md:text-6xl font-serif font-bold text-white tracking-tight ml-3 drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)] leading-none flex items-center"
+                            >
                                 eak'26
                             </span>
                         </div>
+
 
                     </div>
 

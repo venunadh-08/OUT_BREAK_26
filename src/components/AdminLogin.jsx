@@ -12,7 +12,7 @@ export const AdminLogin = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         // Simple client-side check. In a real app, this would be server-side.
-        if (accessKey === 'OUTBREAK26_ADMIN') {
+        if (accessKey === 'GFG_BREAKOUT_ADMIN') {
             sessionStorage.setItem('admin_auth', 'true');
             navigate('/admin/dashboard');
         } else {
