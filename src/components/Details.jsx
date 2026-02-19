@@ -11,10 +11,10 @@ const details = [
     {
         id: 1,
         title: "Registration Opens",
-        value: "February 14, 2026",
+        value: "February 22, 2026",
         desc: "The portal opens. Secure your spot before the grid locks.",
         icon: <LockKeyhole size={24} />,
-        date: "FEB 14",
+        date: "FEB 22",
         colSpan: "md:col-span-1"
     },
     {
@@ -147,8 +147,8 @@ export const Details = () => {
                                     {/* Professional Header - Technical Label */}
                                     <div className="flex justify-between items-start mb-6 border-b border-white/10 pb-4">
                                         <div>
-                                            <h3 className="text-neon-green text-sm font-bold uppercase tracking-widest mb-1 flex items-center gap-2">
-                                                <span className="w-1.5 h-1.5 bg-neon-green rounded-full animate-pulse"></span>
+                                            <h3 className="text-amber-500 text-sm font-bold uppercase tracking-widest mb-1 flex items-center gap-2">
+                                                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span>
                                                 {item.title}
                                             </h3>
                                         </div>
@@ -166,7 +166,7 @@ export const Details = () => {
 
                                     {/* Description - Standard Readable */}
                                     <div className="relative pl-4 border-l-2 border-white/10 group-hover:border-neon-green/50 transition-colors mt-auto">
-                                        <p className="text-gray-300 text-sm leading-relaxed font-medium">
+                                        <p className="text-orange-500 text-sm leading-relaxed font-medium">
                                             {item.desc}
                                         </p>
                                     </div>

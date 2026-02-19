@@ -6,29 +6,24 @@ import { FloatingElements } from './FloatingElements';
 
 const events = [
     {
-        name: "ALGORITHMST 2.0",
-        image: "/gfg.jpeg", // Using the confirmed local image
+        name: "NATIONAL SKILL UP",
+        image: "/image.png", // Using the confirmed local image
         year: "2025"
     },
     {
-        name: "HACK OVERFLOW",
-        image: "/gfg.jpeg",
-        year: "2024"
+        name: "HACK HEIST",
+        image: "/image1.png",
+        year: "2025"
     },
     {
-        name: "CODE SPRINT",
-        image: "/gfg.jpeg",
-        year: "2023"
+        name: "GEEKS FEST",
+        image: "/image2.png",
+        year: "2025"
     },
     {
-        name: "DEV HOST",
-        image: "/gfg.jpeg",
-        year: "2022"
-    },
-    {
-        name: "WEB WIZARDS",
-        image: "/image.png",
-        year: "2024"
+        name: "ALGORITHMST 26",
+        image: "/image3.png",
+        year: "2026"
     }
 ];
 
@@ -58,20 +53,25 @@ export const PastSuccess = () => {
 
     return (
         <section id="past-success" ref={sectionRef} className="py-24 relative overflow-hidden bg-black/20">
-            {/* Background Atmosphere - Breaking Bad */}
+            {/* Background Atmosphere w/ Breaking Bad Theme - Matches Features */}
             <div className="absolute inset-0 z-0">
-                {/* Background Atmosphere */}
-                <div className="absolute inset-0 bg-gradient-to-t from-transparent via-amber-900/10 to-transparent"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black"></div>
+                {/* Hero-like Gradients */}
+                <div className="absolute inset-0 bg-gradient-to-b from-amber-400/10 via-amber-600/5 to-transparent"></div>
+                <div
+                    className="absolute inset-0 opacity-60 mix-blend-soft-light"
+                    style={{
+                        background: 'radial-gradient(circle at 50% 50%, #d17a22 0%, transparent 100%)'
+                    }}
+                ></div>
 
                 {/* Floating Elements */}
                 <FloatingElements />
 
-                {/* Floating Particles */}
+                {/* Floating Particles (Amber) */}
                 {[...Array(15)].map((_, i) => (
                     <div
                         key={i}
-                        className="past-particle absolute w-1 h-1 bg-neon-green/30 rounded-full"
+                        className="past-particle absolute w-1 h-1 bg-amber-400/40 rounded-full"
                         style={{
                             left: `${Math.random() * 100}%`,
                             top: `${Math.random() * 100}%`,
@@ -84,7 +84,7 @@ export const PastSuccess = () => {
 
             <div className="container mx-auto px-6 relative z-10">
                 <div className="text-center mb-16">
-                    <span className="text-neon-green font-bold text-xs tracking-[0.3em] uppercase mb-4 block">Archive Access</span>
+                    <span className="text-amber-500 font-bold text-xs tracking-[0.3em] uppercase mb-4 block">Archive Access</span>
                     <h2 className="text-white text-4xl md:text-5xl font-black font-cinematic mb-4">
                         PREVIOUS <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-green to-emerald-500">OPERATIONS</span>
                     </h2>
@@ -100,7 +100,7 @@ export const PastSuccess = () => {
 
                                     {/* Image Container - Professional Clear View */}
                                     <div className="relative h-full w-full overflow-hidden">
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 opacity-60 transition-opacity group-hover:opacity-40"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 opacity-90 transition-opacity group-hover:opacity-80"></div>
                                         <img
                                             src={event.image}
                                             alt={event.name}
@@ -111,22 +111,22 @@ export const PastSuccess = () => {
                                     {/* Content - Professional Case File Look */}
                                     <div className="absolute bottom-0 left-0 w-full p-6 z-30 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                                         <div className="flex items-center justify-between mb-2">
-                                            <span className="text-neon-green font-mono text-xs font-bold px-2 py-1 border border-neon-green/30 rounded bg-neon-green/10">YES_{event.year}</span>
+                                            <span className="text-amber-400 font-mono text-xs font-bold px-2 py-1 border border-amber-500/30 rounded bg-amber-500/10 drop-shadow-[0_0_5px_rgba(245,158,11,0.5)]">{event.year}</span>
                                             <div className="flex gap-1">
-                                                <span className="w-1 h-1 bg-white/50 rounded-full"></span>
-                                                <span className="w-1 h-1 bg-white/50 rounded-full"></span>
-                                                <span className="w-1 h-1 bg-white/50 rounded-full"></span>
+                                                <span className="w-1 h-1 bg-amber-200/50 rounded-full"></span>
+                                                <span className="w-1 h-1 bg-amber-200/50 rounded-full"></span>
+                                                <span className="w-1 h-1 bg-amber-200/50 rounded-full"></span>
                                             </div>
                                         </div>
-                                        <h3 className="text-white font-bold text-2xl font-cinematic tracking-wider drop-shadow-lg group-hover:text-neon-green transition-colors">
+                                        <h3 className="text-white font-bold text-2xl font-cinematic tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] group-hover:text-amber-300 transition-colors">
                                             {event.name}
                                         </h3>
-                                        <div className="w-full h-[1px] bg-white/20 mt-4 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-100"></div>
+                                        <div className="w-full h-[1px] bg-gradient-to-r from-amber-500/50 to-transparent mt-4 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-100"></div>
                                     </div>
 
                                     {/* Decoration Lines */}
-                                    <div className="absolute top-4 right-4 w-2 h-2 border-t border-r border-white/30 z-30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                    <div className="absolute bottom-4 left-4 w-2 h-2 border-b border-l border-white/30 z-30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    <div className="absolute top-4 right-4 w-2 h-2 border-t border-r border-amber-500/30 z-30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    <div className="absolute bottom-4 left-4 w-2 h-2 border-b border-l border-amber-500/30 z-30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
                                 </div>
                             </TiltCard>
