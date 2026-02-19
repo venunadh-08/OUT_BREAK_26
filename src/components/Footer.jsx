@@ -72,7 +72,7 @@ export const Footer = () => {
                     <div className="lg:col-span-2">
                         <h4 className="text-white font-bold text-base mb-6">Connect</h4>
                         <div className="flex gap-4 mb-8">
-                            <SocialLink icon={<Instagram size={18} />} href="https://www.instagram.com/gfg_kare_student_chapter/" />
+                            <SocialLink icon={<Instagram size={18} />} href="https://www.instagram.com/gfg_campus_body_kare/" />
                             <SocialLink icon={<Linkedin size={18} />} href="https://www.linkedin.com/company/gfg-kare-student-chapter/" />
                             <SocialLink icon={<Mail size={18} />} href="mailto:kare.campus@gfg.org" />
                         </div>
