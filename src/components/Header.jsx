@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
-export const Header = () => {
+export const Header = ({ onRegister }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -80,7 +80,7 @@ export const Header = () => {
 
                     <div className="flex items-center gap-4">
                         {/* Desktop CTA Button */}
-                        <button className="hidden md:block relative px-6 py-2 group overflow-hidden">
+                        <button onClick={onRegister} className="hidden md:block relative px-6 py-2 group overflow-hidden">
                             <div className="absolute inset-0 bg-neon-green transform skew-x-[-15deg] group-hover:bg-yellow-500 transition-colors duration-300 shadow-[0_0_20px_rgba(26,255,125,0.4)] group-hover:shadow-[0_0_20px_rgba(234,179,8,0.4)]"></div>
                             <span className="relative z-10 text-black font-black text-xs tracking-[0.2em] transition-transform group-hover:scale-105 inline-block">
                                 LET'S COOK
@@ -120,7 +120,7 @@ export const Header = () => {
 
                     <div className="w-16 h-1 bg-white/10 rounded-full"></div>
 
-                    <button className="relative px-10 py-4 bg-neon-green text-black font-bold rounded-sm group overflow-hidden">
+                    <button onClick={() => { setIsMenuOpen(false); onRegister(); }} className="relative px-10 py-4 bg-neon-green text-black font-bold rounded-sm group overflow-hidden">
                         <span className="relative z-10 font-mono tracking-widest text-sm flex items-center gap-2">
                             <span className="w-2 h-2 bg-black rounded-full animate-pulse"></span>
                             LET'S COOK

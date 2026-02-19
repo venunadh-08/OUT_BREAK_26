@@ -29,6 +29,14 @@ const events = [
 
 export const PastSuccess = () => {
     const sectionRef = useRef(null);
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -68,7 +76,7 @@ export const PastSuccess = () => {
                 <FloatingElements />
 
                 {/* Floating Particles (Amber) */}
-                {[...Array(15)].map((_, i) => (
+                {[...Array(isMobile ? 5 : 15)].map((_, i) => (
                     <div
                         key={i}
                         className="past-particle absolute w-1 h-1 bg-amber-400/40 rounded-full"
@@ -104,6 +112,8 @@ export const PastSuccess = () => {
                                         <img
                                             src={event.image}
                                             alt={event.name}
+                                            loading="lazy"
+                                            decoding="async"
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-110"
                                         />
                                     </div>

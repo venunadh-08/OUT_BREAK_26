@@ -13,7 +13,7 @@ const IntroOverlay = ({ onComplete }) => {
     return null;
 };
 
-export const Hero = () => {
+export const Hero = ({ onRegister }) => {
     const heroRef = useRef(null);
     const [introFinished, setIntroFinished] = useState(false);
 
@@ -173,7 +173,7 @@ export const Hero = () => {
                     </h2>
 
                     <div className="cta-group flex flex-wrap justify-center gap-4 md:gap-6">
-                        <button className="relative px-6 py-3 md:px-8 md:py-4 bg-neon-green text-black font-bold rounded-sm border border-neon-green hover:bg-yellow-500 hover:text-black transition-all duration-300 group shadow-[0_0_20px_rgba(26,255,125,0.6)] overflow-hidden">
+                        <button onClick={onRegister} className="relative px-6 py-3 md:px-8 md:py-4 bg-neon-green text-black font-bold rounded-sm border border-neon-green hover:bg-yellow-500 hover:text-black transition-all duration-300 group shadow-[0_0_20px_rgba(26,255,125,0.6)] overflow-hidden">
                             <span className="relative z-10 flex items-center gap-2 tracking-widest font-mono text-xs md:text-sm font-black">
                                 <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-black rounded-full animate-pulse"></span>
                                 COOK CRYSTAL_GLASS

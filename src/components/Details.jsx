@@ -20,10 +20,10 @@ const details = [
     {
         id: 2,
         title: "Event Date",
-        value: "28th & 29th March 2026",
-        desc: "48 hours of intense coding and logic.",
+        value: "30th & 31st March 2026",
+        desc: "24 hours of intense coding and logic.",
         icon: <Calendar size={24} />,
-        date: "MAR 28-29",
+        date: "MAR 30-31",
         colSpan: "md:col-span-1"
     },
     {

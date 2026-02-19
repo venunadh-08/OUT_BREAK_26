@@ -45,8 +45,8 @@ export const Footer = () => {
                     <div className="lg:col-span-3">
                         <h4 className="text-white font-bold text-base mb-6">Student Coordinators</h4>
                         <div className="space-y-3">
-                            <CoordinatorRow name="Rakshan Ananth" phone="+91 90035 13022" />
                             <CoordinatorRow name="Anirudh NC" phone="+91 99660 66070" />
+                            <CoordinatorRow name="Rakshan Ananth" phone="+91 90035 13022" />
                             <CoordinatorRow name="M Abhinay Reddy" phone="+91 63029 14029" />
                             <CoordinatorRow name="Shruthi M" phone="+91 88708 67242" />
                             <CoordinatorRow name="L Harsha Vardhan" phone="+91 91005 50609" />
