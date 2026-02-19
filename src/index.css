@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-green: #1a4d2e;
+  --neon-green-glow: 0 0 20px rgba(26, 77, 46, 0.5), 0 0 40px rgba(26, 77, 46, 0.3);
+  --burnt-orange: #d1510a;
+  --dark-bg: #0a0a0a;
+  --panel-bg: rgba(20, 10, 5, 0.82);
+  --br-green: #1a4d2e;
+  --deep-green: #1a4d2e;
+  --desert-orange: #9c4d15;
+  --desert-haze: #d17a22;
+  --text-primary: #f0f0f0;
+  --text-secondary: #a0a0a0;
+  --font-cinematic: 'Courier Prime', monospace;
+  --font-main: 'Outfit', sans-serif;
+  --font-display: 'Metamorphous', serif;
+  --font-serif: 'Georgia', serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+a {
+  touch-action: manipulation;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #1a0f0a;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* Mobile viewport fix */
+}
+
+/* Fixed Background Layer for Mobile Stability */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* Fallback */
+  height: 100dvh;
+  z-index: -1;
+  background-color: #1a0f0a;
+  background-image:
+    radial-gradient(circle at 50% 100%, #d17a22 0%, rgba(26, 15, 10, 0.4) 100%),
+    url("https://www.transparenttextures.com/patterns/dark-matter.png"),
+    url("https://www.transparenttextures.com/patterns/pinstriped-suit.png");
+  background-blend-mode: multiply, normal, overlay;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a0f0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-green);
+}
+
+/* Animations */
+@keyframes flicker {
+
+  0%,
+  19.999%,
+  22%,
+  62.999%,
+  64%,
+  64.999%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+
+  20%,
+  21.999%,
+  63%,
+  63.999%,
+  65%,
+  69.999% {
+    opacity: 0.4;
+  }
+}
+
+.flicker {
+  animation: flicker 4s infinite step-end;
+  will-change: opacity, text-shadow;
+  transform: translateZ(0);
+  /* Hardware acceleration / Layer promotion */
+  backface-visibility: hidden;
+}
+
+/* Chemical Element Style */
+.element-box {
+  width: 100px;
+  height: 100px;
+  background: var(--br-green);
+  border: 4px solid #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  position: relative;
+  box-shadow: 0 0 30px rgba(146, 64, 14, 0.4), 0 0 10px rgba(26, 77, 46, 0.3);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.element-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 80%, rgba(65, 42, 20, 0.4) 100%),
+    url("https://www.transparenttextures.com/patterns/dark-matter.png");
+  opacity: 0.3;
+}
+
+.element-symbol {
+  font-family: var(--font-cinematic);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  z-index: 1;
+}
+
+.element-number {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  z-index: 1;
+}
+
+/* Glassmorphism (High-Contrast Deep Green) */
+.glass {
+  background: radial-gradient(circle at top left, rgba(26, 77, 46, 0.6) 0%, rgba(10, 15, 12, 0.9) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(26, 77, 46, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(26, 77, 46, 0.1);
+}
+
+/* Section Atmosphere Utility */
+.section-atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.section-atmosphere::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(209, 122, 34, 0.15) 0%, transparent 80%);
+}
+
+.section-atmosphere::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/sandpaper.png");
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+}
+
+/* Cinematic Effects */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.05;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+}
+
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .film-grain {
+    display: none;
+  }
+}
+
+.smoke-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.3;
+  mix-blend-mode: screen;
+}
+
+.desert-bg {
+  background: linear-gradient(180deg, #2d1b0a 0%, #d17a22 50%, #9c4d15 100%);
+  position: relative;
+  background-image: url("https://www.transparenttextures.com/patterns/sandpaper.png");
+}
+
+.desert-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+  pointer-events: none;
+}
+
+.radiation-icon {
+  fill: rgba(0, 0, 0, 0.2);
+  filter: blur(1px);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-2xl {
+  text-shadow: 0 20px 25px rgba(0, 0, 0, 0.8), 0 0 20px rgba(26, 77, 46, 0.4);
+}
+
+/* Unique Hexagonal Chemical Pattern */
+.bg-hex-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='56' height='100' viewBox='0 0 56 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23ffffff' stroke-width='1' stroke-opacity='0.1'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23ffffff' stroke-width='1' stroke-opacity='0.1'/%3E%3C/svg%3E");
+  background-size: 56px 100px;
+}
