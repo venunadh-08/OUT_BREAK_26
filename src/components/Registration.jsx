@@ -738,8 +738,8 @@ export const Registration = ({ onClose }) => {
                             onBlur={e => handleBlur('teamName', 'teamName', e.target.value)}
                             error={errors.teamName}
                             validationStatus={fieldStatus.teamName}
-                            placeholder="DESIGNATE TEAM CODENAME"
-                            className={`bg-transparent border-b-2 ${errors.teamName ? 'border-red-500' : 'border-yellow-500/50'} text-4xl py-6 font-cinematic text-center w-full focus:outline-none focus:border-yellow-500 text-yellow-500 placeholder:text-white/10 placeholder:font-sans`}
+                            placeholder="DESIGNATE TEAM NAME"
+                            className={`bg-transparent border-b-2 ${errors.teamName ? 'border-red-500' : 'border-yellow-500/50'} text-xl md:text-3xl py-6 font-cinematic text-center w-full focus:outline-none focus:border-yellow-500 text-yellow-500 placeholder:text-white/10 placeholder:font-sans`}
                         />
                         <p className="text-xs text-gray-500 mt-6 font-mono text-center tracking-widest uppercase">* Unique Identifier Required.</p>
                     </div>
@@ -781,16 +781,16 @@ export const Registration = ({ onClose }) => {
                     </div>
 
                     {/* Payment Section */}
-                    <div className="form-section bg-neutral-900/40 border border-white/10 p-10 relative overflow-hidden group">
+                    <div className="form-section bg-neutral-900/40 border border-white/10 p-4 md:p-10 relative overflow-hidden group">
                         <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
 
-                        <h3 className="text-3xl font-bold text-white mb-10 flex items-center gap-4 font-cinematic">
-                            <CreditCard className="text-yellow-500 w-8 h-8" />
+                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-10 flex items-center gap-4 font-cinematic">
+                            <CreditCard className="text-yellow-500 w-6 h-6 md:w-8 md:h-8" />
                             <span className="tracking-widest">TRANSACTION PROTOCOL</span>
                         </h3>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-                            <div className="flex flex-col items-center p-8 bg-black/40 border border-white/10 relative">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
+                            <div className="flex flex-col items-center p-4 md:p-8 bg-black/40 border border-white/10 relative">
                                 {/* Corner Decorations */}
                                 <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white/20"></div>
                                 <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-white/20"></div>
@@ -798,24 +798,24 @@ export const Registration = ({ onClose }) => {
                                 <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white/20"></div>
 
                                 {/* Placeholder for QR */}
-                                <div className="w-64 h-64 bg-white p-3 mb-8 shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                                <div className="w-48 h-48 md:w-64 md:h-64 bg-white p-3 mb-6 md:mb-8 shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                                     <div className="w-full h-full border-2 border-black flex items-center justify-center bg-gray-100">
-                                        <img src="/payment.jpeg" alt="QR Code" className="w-full h-full object-contain mix-blend-multiply" onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = '<span class="font-bold text-black text-2xl">QR CODE</span>'; }} />
+                                        <img src="/payment.jpeg" alt="QR Code" className="w-full h-full object-contain mix-blend-multiply" onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = '<span class="font-bold text-black text-xl md:text-2xl">QR CODE</span>'; }} />
                                     </div>
                                 </div>
                                 <div className="text-center w-full">
                                     <div className="flex flex-col items-center border-b border-white/10 pb-4 mb-4">
-                                        <span className="text-gray-400 text-sm font-mono uppercase mb-2">Total Amount</span>
-                                        <span className="text-5xl font-bold text-yellow-500 font-mono mb-2">₹1,400</span>
-                                        <span className="text-lg text-white/80 font-mono font-bold tracking-widest">₹350 / UNIT</span>
+                                        <span className="text-gray-400 text-xs md:text-sm font-mono uppercase mb-2">Total Amount</span>
+                                        <span className="text-3xl md:text-5xl font-bold text-yellow-500 font-mono mb-2">₹1,400</span>
+                                        <span className="text-sm md:text-lg text-white/80 font-mono font-bold tracking-widest">₹350 / UNIT</span>
                                     </div>
-                                    <div className="font-mono text-lg bg-yellow-500/10 border border-yellow-500/20 px-6 py-4 text-yellow-500">
+                                    <div className="font-mono text-sm md:text-lg bg-yellow-500/10 border border-yellow-500/20 px-4 md:px-6 py-3 md:py-4 text-yellow-500 break-all md:break-normal">
                                         UPI ID: <span className="font-bold text-white">69097701@ubin</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 gap-8 items-start">
+                            <div className="grid grid-cols-1 gap-6 md:gap-8 items-start">
                                 <InputField
                                     label="Transaction ID / UTR"
                                     value={formData.payment.transactionId}
@@ -829,7 +829,7 @@ export const Registration = ({ onClose }) => {
 
                                 <div className="flex flex-col gap-4">
                                     <label className="text-yellow-500/80 font-mono text-xs uppercase tracking-[0.2em]">PROOF OF TRANSFER</label>
-                                    <div className={`border border-dashed ${errors.screenshot ? 'border-red-500' : 'border-white/20'} bg-black/20 p-12 text-center hover:bg-white/5 transition-all cursor-pointer relative group/upload overflow-hidden`}>
+                                    <div className={`border border-dashed ${errors.screenshot ? 'border-red-500' : 'border-white/20'} bg-black/20 p-6 md:p-12 text-center hover:bg-white/5 transition-all cursor-pointer relative group/upload overflow-hidden`}>
                                         <input
                                             type="file"
                                             onChange={handleFileChange}
@@ -838,7 +838,7 @@ export const Registration = ({ onClose }) => {
                                         />
                                         <div className="relative z-0 group-hover/upload:scale-110 transition-transform duration-300">
                                             <Upload className="mx-auto text-yellow-500 mb-4" size={40} />
-                                            <p className="text-sm text-gray-300 font-mono uppercase tracking-widest">
+                                            <p className="text-xs md:text-sm text-gray-300 font-mono uppercase tracking-widest">
                                                 {formData.payment.screenshot ? formData.payment.screenshot.name : "INITIALIZE UPLOAD SEQUENCE"}
                                             </p>
                                         </div>
@@ -859,7 +859,7 @@ export const Registration = ({ onClose }) => {
                         <button
                             type="submit"
                             disabled={isSubmitting || Object.values(fieldStatus).some(s => s === 'loading' || s === 'taken')}
-                            className="w-full relative overflow-hidden bg-yellow-500 text-black font-black text-2xl py-6 hover:bg-white transition-all duration-300 shadow-[0_0_40px_rgba(234,179,8,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-[0.3em] clip-path-slant"
+                            className="w-full relative overflow-hidden bg-yellow-500 text-black font-black text-lg md:text-xl py-3 md:py-4 hover:bg-white transition-all duration-300 shadow-[0_0_40px_rgba(234,179,8,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-[0.2em] clip-path-slant"
                             style={{ clipPath: 'polygon(2% 0, 100% 0, 98% 100%, 0% 100%)' }}
                         >
                             <span className="relative z-10 flex justify-center items-center gap-4">
