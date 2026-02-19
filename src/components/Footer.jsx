@@ -37,7 +37,7 @@ export const Footer = () => {
                             </div>
                         </div>
                         <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-                            Break The Code.
+                            Break The Code, Cook Ideas, Break Limits.
                         </p>
                     </div>
 
