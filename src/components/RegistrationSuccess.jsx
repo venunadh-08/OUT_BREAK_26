@@ -68,7 +68,7 @@ export const RegistrationSuccess = ({ onClose }) => {
                         <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                         <div className="relative flex items-center gap-2">
                             <MessageCircle size={20} />
-                            JOIN WA NETWORK
+                            JOIN THE LAB
                             <ExternalLink size={16} className="opacity-60" />
                         </div>
                     </a>

@@ -190,6 +190,7 @@ const PersonForm = ({ data, onChange, onBlur, prefix, title, errors, validationS
 );
 
 export const Registration = ({ onClose }) => {
+    const navigate = useNavigate();
     const containerRef = useRef(null);
     const formRef = useRef(null);
 
@@ -224,6 +225,7 @@ export const Registration = ({ onClose }) => {
 
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
     const [submitError, setSubmitError] = useState(null);
 
     // Dynamic Validation State
@@ -366,8 +368,8 @@ export const Registration = ({ onClose }) => {
         }
 
         // 3. Reg No / Room No: Allow only digits (No alphabets)
-        if (field === 'regNo' || field === 'roomNo') {
-            if (!/^\d*$/.test(value)) return; // Ignore non-digits
+        if (field === 'roomNo') {
+            if (!/^\d*$/.test(value)) return; // Ignore non-digits for Room No
         }
 
         setFormData(prev => {
@@ -425,11 +427,11 @@ export const Registration = ({ onClose }) => {
             // Person Validation
             if (field === 'name') {
                 if (!value) error = "Required";
-                else if (!/^[A-Za-z\s]+$/.test(value)) error = "Alphabets Only";
+                // Name: No constraints
             }
             if (field === 'regNo') {
                 if (!value) error = "Required";
-                else if (!/^\d+$/.test(value)) error = "Digits Only";
+                // RegNo: No constraints
             }
             if (field === 'email') {
                 if (!value) error = "Required";
@@ -485,10 +487,9 @@ export const Registration = ({ onClose }) => {
         // Helper to validate a person
         const validatePerson = (person, prefix) => {
             if (!person.name) newErrors[`${prefix}_name`] = "Required";
-            else if (!/^[A-Za-z\s]+$/.test(person.name)) newErrors[`${prefix}_name`] = "Text Only";
+            // Name: No constraints as requested
 
             if (!person.regNo) newErrors[`${prefix}_regNo`] = "Required";
-            else if (!/^\d+$/.test(person.regNo)) newErrors[`${prefix}_regNo`] = "Digits Only";
 
             if (!person.email) newErrors[`${prefix}_email`] = "Required";
             else if (!person.email.endsWith('@klu.ac.in')) newErrors[`${prefix}_email`] = "Use KLU Mail";
@@ -611,17 +612,14 @@ export const Registration = ({ onClose }) => {
 
                     // A. Read existing state
                     const regsRef = collection(firestore, 'registrations');
-                    const [docSnap, emailSnap, regSnap, txnSnap] = await Promise.all([
+                    // Simplified checks: Only Team Name and Transaction ID uniqueness
+                    const [docSnap, txnSnap] = await Promise.all([
                         transaction.get(regDocRef),
-                        getDocs(query(regsRef, where("teamLeader.email", "==", processedData.teamLeader.email))),
-                        getDocs(query(regsRef, where("teamLeader.regNo", "==", processedData.teamLeader.regNo))),
                         getDocs(query(regsRef, where("payment.transactionId", "==", processedData.payment.transactionId)))
                     ]);
 
                     // B. Validate Constraints
                     if (docSnap.exists()) throw new Error("Team Name already taken! Please choose another.");
-                    if (!emailSnap.empty) throw new Error("Team Leader Email already registered!");
-                    if (!regSnap.empty) throw new Error("Team Leader RegNo already registered!");
                     if (!txnSnap.empty) throw new Error("Transaction ID already used!");
 
                     // C. Commit Write
@@ -629,10 +627,12 @@ export const Registration = ({ onClose }) => {
                 });
 
                 console.log("Transaction successful.");
-                navigate('/success');
+                setIsSuccess(true);
+                setTimeout(() => navigate('/success'), 1500);
 
             } catch (error) {
                 console.error("Error submitting registration: ", error);
+                setIsSubmitting(false);
 
                 // Enhanced Error Handling
                 let msg = error.message || "An unknown error occurred.";
@@ -647,14 +647,24 @@ export const Registration = ({ onClose }) => {
                     if (errorDiv) errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 100);
 
-            } finally {
-                // CRITICAL: Always re-enable button
-                setIsSubmitting(false);
             }
         } else {
             // Scroll to first error
-            const firstError = document.querySelector('.error-message');
-            if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Wait for React to render the error states
+            setTimeout(() => {
+                // Try to find the first error message
+                const firstError = document.querySelector('.text-red-500');
+                // Or find the first input with red border (group)
+                const firstInvalidInput = document.querySelector('.border-red-500');
+
+                if (firstInvalidInput) {
+                    firstInvalidInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstInvalidInput.focus();
+                } else if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
         }
     };
 
@@ -869,7 +879,12 @@ export const Registration = ({ onClose }) => {
                             style={{ clipPath: 'polygon(2% 0, 100% 0, 98% 100%, 0% 100%)' }}
                         >
                             <span className="relative z-10 flex justify-center items-center gap-4">
-                                {isSubmitting ? (
+                                {isSuccess ? (
+                                    <>
+                                        <Check className="w-8 h-8 text-black" />
+                                        ACCESS GRANTED
+                                    </>
+                                ) : isSubmitting ? (
                                     <>
                                         <span className="w-6 h-6 border-3 border-black border-t-transparent rounded-full animate-spin"></span>
                                         PROCESSING CLASSIFIED DATA...
