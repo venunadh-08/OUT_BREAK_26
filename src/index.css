@@ -29,6 +29,10 @@ a {
   touch-action: manipulation;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;

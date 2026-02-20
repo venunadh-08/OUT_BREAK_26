@@ -24,7 +24,7 @@ const InputField = ({ label, value, onChange, error, validationStatus, placehold
     <div className="flex flex-col gap-2 w-full group">
         <label className="text-yellow-500 font-mono text-sm md:text-base uppercase tracking-[0.15em] group-focus-within:text-yellow-400 transition-colors flex justify-between font-bold">
             {label}
-            {error && <span className="text-red-500 normal-case tracking-normal text-[0.65rem] md:text-xs font-normal ml-2">{error}</span>}
+            {error && <span className="text-red-500 normal-case tracking-normal text-xs md:text-sm font-semibold ml-2">{error}</span>}
         </label>
         <div className="relative">
             <input
@@ -60,7 +60,7 @@ const SelectField = ({ label, value, onChange, options, error, onBlur }) => (
     <div className="flex flex-col gap-2 w-full group">
         <label className="text-yellow-500/90 font-mono text-sm md:text-base uppercase tracking-[0.15em] group-focus-within:text-yellow-400 transition-colors flex justify-between font-bold">
             {label}
-            {error && <span className="text-red-500 normal-case tracking-normal text-[0.65rem] md:text-xs font-normal ml-2">{error}</span>}
+            {error && <span className="text-red-500 normal-case tracking-normal text-xs md:text-sm font-semibold ml-2">{error}</span>}
         </label>
         <div className="relative">
             <select
@@ -82,6 +82,33 @@ const SelectField = ({ label, value, onChange, options, error, onBlur }) => (
             {/* Animated Bottom Border */}
             <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-500 transition-all duration-500 group-focus-within:w-full"></div>
         </div>
+    </div>
+);
+
+const RadioGroup = ({ label, value, onChange, options, error }) => (
+    <div className="flex flex-col gap-3 w-full group">
+        <label className="text-yellow-500/90 font-mono text-sm md:text-base uppercase tracking-[0.15em] font-bold">
+            {label}
+            {error && <span className="text-red-500 normal-case tracking-normal text-xs md:text-sm font-semibold ml-2">{error}</span>}
+        </label>
+        <div className="flex items-center gap-8 py-2">
+            {options.map((opt) => (
+                <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => onChange(opt.value)}
+                    className="flex items-center gap-3 group/radio focus:outline-none"
+                >
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${value === opt.value ? 'border-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.4)]' : 'border-gray-500 group-hover/radio:border-gray-400'}`}>
+                        <div className={`w-2.5 h-2.5 rounded-full bg-yellow-500 transition-transform duration-300 ${value === opt.value ? 'scale-100' : 'scale-0'}`}></div>
+                    </div>
+                    <span className={`text-base md:text-lg font-bold tracking-wide transition-colors ${value === opt.value ? 'text-white' : 'text-gray-500 group-hover/radio:text-gray-300'}`}>
+                        {opt.label}
+                    </span>
+                </button>
+            ))}
+        </div>
+        <div className="h-[1px] bg-white/10 w-full mt-1"></div>
     </div>
 );
 
@@ -127,7 +154,24 @@ const PersonForm = ({ data, onChange, onBlur, prefix, title, errors, validationS
             <InputField label="Branch" value={data.branch} onChange={v => onChange('branch', v)} onBlur={e => onBlur('branch', e.target.value)} error={errors[`${prefix}_branch`]} placeholder="CSE, ECE, IT..." />
             <InputField label="Section" value={data.section} onChange={v => onChange('section', v)} onBlur={e => onBlur('section', e.target.value)} error={errors[`${prefix}_section`]} placeholder="SECTION" />
 
-            <SelectField label="Accommodation" value={data.accommodation} onChange={v => onChange('accommodation', v)} onBlur={e => onBlur('accommodation', e.target.value)} options={['Dayscholar', 'Hostler']} error={errors[`${prefix}_accommodation`]} />
+            <RadioGroup
+                label="Accommodation"
+                value={data.accommodation}
+                onChange={v => {
+                    onChange('accommodation', v);
+                    if (v === 'Dayscholar') {
+                        onChange('hostelName', '');
+                        onChange('roomNo', '');
+                        onChange('wardenName', '');
+                        onChange('wardenPhone', '');
+                    }
+                }}
+                options={[
+                    { label: 'Day Scholar', value: 'Dayscholar' },
+                    { label: 'Hostler', value: 'Hostler' }
+                ]}
+                error={errors[`${prefix}_accommodation`]}
+            />
         </div>
 
         {data.accommodation === 'Hostler' && (
@@ -208,7 +252,8 @@ export const Registration = ({ onClose }) => {
             try {
                 // Surgical checks for scalability (No collection scanning)
                 // 1. Check direct ID (No spaces, Upper case)
-                const normalizedId = debouncedTeamName.replace(/\s+/g, '').toUpperCase();
+                // 1. Check direct ID (No spaces, No symbols, Upper case)
+                const normalizedId = debouncedTeamName.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
                 const docRef = doc(firestore, "registrations", normalizedId);
 
                 // 2. Check exact field match (For team names that might have been saved differently)
@@ -244,73 +289,9 @@ export const Registration = ({ onClose }) => {
         return () => { isActive = false; };
     }, [debouncedTeamName]);
 
-    useEffect(() => {
-        let isActive = true;
-        if (!debouncedLeaderEmail || !debouncedLeaderEmail.endsWith('@klu.ac.in')) {
-            setFieldStatus(prev => ({ ...prev, leaderEmail: null }));
-            return;
-        }
-        const checkLeaderEmail = async () => {
-            setFieldStatus(prev => ({ ...prev, leaderEmail: 'loading' }));
-            try {
-                const q = query(collection(firestore, "registrations"), where("teamLeader.email", "==", debouncedLeaderEmail));
-                const snap = await getDocs(q);
 
-                if (!isActive) return;
 
-                setFieldStatus(prev => ({ ...prev, leaderEmail: snap.empty ? 'valid' : 'taken' }));
 
-                if (!snap.empty) {
-                    setErrors(prev => ({ ...prev, teamLeader_email: "ALREADY EXISTS" }));
-                } else {
-                    setErrors(prev => {
-                        const newErrors = { ...prev };
-                        delete newErrors.teamLeader_email;
-                        return newErrors;
-                    });
-                }
-            } catch (err) {
-                console.error("Error checking leader email", err);
-                if (isActive) setFieldStatus(prev => ({ ...prev, leaderEmail: null }));
-            }
-        };
-        checkLeaderEmail();
-        return () => { isActive = false; };
-    }, [debouncedLeaderEmail]);
-
-    useEffect(() => {
-        let isActive = true;
-        if (!debouncedLeaderRegNo) {
-            setFieldStatus(prev => ({ ...prev, leaderRegNo: null }));
-            return;
-        }
-        const checkLeaderRegNo = async () => {
-            setFieldStatus(prev => ({ ...prev, leaderRegNo: 'loading' }));
-            try {
-                const q = query(collection(firestore, "registrations"), where("teamLeader.regNo", "==", debouncedLeaderRegNo));
-                const snap = await getDocs(q);
-
-                if (!isActive) return;
-
-                setFieldStatus(prev => ({ ...prev, leaderRegNo: snap.empty ? 'valid' : 'taken' }));
-
-                if (!snap.empty) {
-                    setErrors(prev => ({ ...prev, teamLeader_regNo: "ALREADY EXISTS" }));
-                } else {
-                    setErrors(prev => {
-                        const newErrors = { ...prev };
-                        delete newErrors.teamLeader_regNo;
-                        return newErrors;
-                    });
-                }
-            } catch (err) {
-                console.error("Error checking leader reg no", err);
-                if (isActive) setFieldStatus(prev => ({ ...prev, leaderRegNo: null }));
-            }
-        };
-        checkLeaderRegNo();
-        return () => { isActive = false; };
-    }, [debouncedLeaderRegNo]);
 
 
 
@@ -391,7 +372,7 @@ export const Registration = ({ onClose }) => {
 
         setFormData(prev => {
             if (section === 'teamName') {
-                return { ...prev, teamName: processedValue };
+                return { ...prev, teamName: processedValue.toUpperCase() };
             }
             if (section === 'payment') {
                 return { ...prev, payment: { ...prev.payment, [field]: processedValue } };
@@ -534,9 +515,7 @@ export const Registration = ({ onClose }) => {
         };
 
         validatePerson(formData.teamLeader, 'teamLeader');
-        // Specific checks for leader availability
-        if (fieldStatus.leaderEmail === 'taken') newErrors.teamLeader_email = "ALREADY EXISTS";
-        if (fieldStatus.leaderRegNo === 'taken') newErrors.teamLeader_regNo = "ALREADY EXISTS";
+
 
         formData.members.forEach((member, idx) => validatePerson(member, `members_${idx}`));
 
@@ -584,6 +563,15 @@ export const Registration = ({ onClose }) => {
         e.preventDefault();
         setSubmitError(null);
 
+        // 0. Safety Check: Online Status
+        if (!navigator.onLine) {
+            setSubmitError("YOU ARE OFFLINE. ESTABLISH UPLINK AND RETRY.");
+            // Scroll to error
+            const errorDiv = document.querySelector('.error-message-container');
+            if (errorDiv) errorDiv.scrollIntoView({ behavior: 'smooth' });
+            return;
+        }
+
         if (validateForm()) {
             setIsSubmitting(true);
             console.log("Starting submission (Reference Impl)...");
@@ -597,7 +585,8 @@ export const Registration = ({ onClose }) => {
                 }
 
                 // 2. Prepare Data
-                const registrationId = formData.teamName.replace(/\s+/g, '').toUpperCase();
+                // ID generation: Remove spaces AND special characters
+                const registrationId = formData.teamName.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
                 const processedData = {
                     ...formData,
                     teamLeader: {
@@ -640,12 +629,10 @@ export const Registration = ({ onClose }) => {
                 });
 
                 console.log("Transaction successful.");
-                setIsSubmitting(false);
                 navigate('/success');
 
             } catch (error) {
                 console.error("Error submitting registration: ", error);
-                setIsSubmitting(false);
 
                 // Enhanced Error Handling
                 let msg = error.message || "An unknown error occurred.";
@@ -653,6 +640,16 @@ export const Registration = ({ onClose }) => {
                 if (msg.includes("resource-exhausted")) msg = "Quota exceeded. Contact Support.";
 
                 setSubmitError(msg);
+
+                // Scroll to error
+                setTimeout(() => {
+                    const errorDiv = document.getElementById('submit-error');
+                    if (errorDiv) errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+
+            } finally {
+                // CRITICAL: Always re-enable button
+                setIsSubmitting(false);
             }
         } else {
             // Scroll to first error
@@ -824,7 +821,6 @@ export const Registration = ({ onClose }) => {
                                     error={errors.transactionId}
                                     validationStatus={fieldStatus.transactionId}
                                     placeholder="ENTER TRANSACTION ID"
-                                    inputMode="numeric"
                                 />
 
                                 <div className="flex flex-col gap-4">
@@ -849,6 +845,16 @@ export const Registration = ({ onClose }) => {
                         </div>
                     </div>
 
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="flex items-start gap-3 bg-red-950/80 border border-red-500 p-4 max-w-2xl text-left rounded-sm shadow-[0_0_15px_rgba(239,68,68,0.2)] backdrop-blur-sm relative overflow-hidden">
+                            <div className="absolute inset-0 bg-red-500/10 animate-pulse pointer-events-none"></div>
+                            <AlertCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 relative z-10" />
+                            <p className="text-red-100 text-xs md:text-sm font-mono leading-relaxed relative z-10">
+                                <strong className="text-red-500 block mb-1 tracking-widest uppercase text-base">Critical Notice:</strong>
+                                Ensure all details are accurate before submission. Once registered, details cannot be modified and will be used for CERTIFICATES & CREDITS.
+                            </p>
+                        </div>
+                    </div>
                     {/* Submit Button */}
                     <div className="sticky bottom-4 z-50 pt-10 pb-6 bg-gradient-to-t from-black via-black/90 to-transparent">
                         {submitError && (

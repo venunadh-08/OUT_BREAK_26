@@ -14,7 +14,7 @@ export const AdminLogin = () => {
         // Simple client-side check. In a real app, this would be server-side.
         if (accessKey === 'GFG_BREAKOUT_ADMIN') {
             sessionStorage.setItem('admin_auth', 'true');
-            navigate('/admin/dashboard');
+            navigate('/gfg_out_admin/dashboard');
         } else {
             setError('ACCESS DENIED: INVALID CRYPTO KEY');
             setAccessKey('');
